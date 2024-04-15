@@ -72,18 +72,7 @@ WSGI_APPLICATION = 'bubblemytea.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql11699181',
-        'USER': 'sql11699181',
-        'PASSWORD': 'ZfjSzeVCt2',
-        'HOST': 'sql11.freesqldatabase.com',
-        'PORT': '3306',
-    }
-}
-"""
+
 
 
 # Password validation
