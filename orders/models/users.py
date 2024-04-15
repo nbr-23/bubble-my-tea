@@ -10,3 +10,6 @@ class User(models.Model):
     is_admin = models.BooleanField(default=False)
     password_reset_token = models.CharField(max_length=100)
     password_reset_method = models.CharField(max_length=10)
+    
+    class Meta:
+        db_table = 'Users'
