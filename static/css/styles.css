@@ -1,0 +1,240 @@
+html, body{
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #000000;
+    color: white;
+    padding: 10px 25px;
+  }
+  
+  header div{
+    display: flex;
+    justify-content: space-between;
+    width: 18%;
+    align-items: center;
+  }
+  
+  header div a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    padding: 8px;
+    border-radius: 4px;
+    margin: 0px 10px;
+  }
+  
+  a {
+    text-decoration: none; 
+  }
+  
+  header  a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set the text color to white */
+    font-weight: bold; /* Set the font weight to bold */
+    padding: 8px;
+    border-radius: 4px;
+    
+    transition: background-color 0.3s; /* Add a smooth transition effect */
+  }
+  
+  header  a:hover {
+    background-color: #ffffff; /* Change the background color on hover */
+    color: black;
+  }
+  .container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    
+  }
+  
+  #login-container,
+  #chat-container {
+    max-width: 600px;
+    margin:auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width:90%;
+  
+  }
+  input[type="email"],
+  input[type="text"],
+  select,
+  input[type="password"] {
+    width: 96%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  #link_menu, button, #containerBtn a {
+    width: 45%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  
+  #showCreateChannel {
+    width: 35%;
+    padding: 8px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto; 
+    text-align: center;
+  }
+  
+  #showCreateChannel:hove r{
+    background-color: #ffffff; 
+    color: rgb(0, 0, 0);
+  }
+  #user_list {
+    
+    font-size: 1.3em;
+  }
+  
+  #link_menu:hover, button:hover, #containerBtn a:hover  {
+    background-color: #000000; 
+    color: rgb(255, 255, 255);
+  }
+  
+  #login_button {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+  }
+  
+  .login-form{
+    text-align: center;  
+  }
+  
+  
+  
+  
+  #messages {
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+  }
+  
+  
+  .sent {
+    width: 50%;
+    text-align: right;
+    float: right;
+    background-color: #DCF8C6; 
+    padding: 5px;
+    border-radius: 8px;
+    margin: 4px 0;
+  }
+  
+  .received {
+    width: 50%;
+    float: left;
+    text-align: left;
+    background-color: #ECECEC; 
+    padding: 5px;
+    border-radius: 8px;
+    margin: 4px 0;
+  }
+  
+  
+  #bar{
+    width: 20%;
+    position: relative;
+  }
+  
+  #bar select, #channels select{
+    width: 100%;
+  }
+  
+  
+  #channels{
+    width: 30%;
+    margin: 0px auto
+  }
+  #channel-name, #channel-desc{
+    width: 95%;
+  }
+  
+  #channels-list{
+    width: 100%;
+    max-height: 400px; 
+    overflow-x: scroll;
+  }
+  
+  #containerBtn{
+    display: flex;
+    justify-content: space-between
+  }
+  
+  #containerBtn a, #containerBtn button{
+    width: 35%;
+  }
+  #containerBtn a{
+    text-decoration: none;
+    text-align: center
+  }
+  
+  #showCreateChannel {
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+    width: 95%
+  }
+  
+  
+  .channel-selected {
+    background-color: #ececec;
+  }
+  
+  .channel-option{
+    cursor: pointer;
+  }
+  
+  .channel-option:hover{
+      background-color: #ececec;
+  }
+  
+  hr{
+    color: #ececec;
+  }
+  
+  .reset{
+    text-align: center;
+  }
+  
+  #login-container{
+    margin-top: 5%;
+  }
+  
+  .user-option, .channel-option{
+    text-align: center;
+  
+  }
+  
+  button {
+    display: block;
+    margin: 0 auto; /* This will center the button horizontally */
+  }
+  
+  .link_menu {
+    display: block;
+    margin: 0 auto; /* This will center the button horizontally */
+  }

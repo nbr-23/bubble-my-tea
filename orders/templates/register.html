@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inscription | Bubble</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <header>
+      <p><a href="/">Bubble my Tea</a></p>
+  </header>
+    <div id="login-container">
+      <h1 class="reset">Inscription</h1>
+      <form id="login-form" action="/user/add" method="post">
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          placeholder="Votre nom"
+          required
+        />
+        <input
+        type="text"
+        id="firstname"
+        name="firstname"
+        placeholder="Votre prénom"
+        required
+      />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Mot de passe"
+          required
+        />
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirmer le mot de passe"
+          required
+        />
+        <button id="login_button" type="submit">S'inscrire</button>
+      </form>
+      <p>
+        Vous avez déjà un compte ? <a href="/">Connectez-vous</a>
+      </p>
+    </div>
+    
+  </body>
+</html>

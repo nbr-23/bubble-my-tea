@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connexion | Bubble </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <header>
+      <p><a href="/">Bubble my Tea</a></p>
+  </header>
+    <div id="login-container">
+      <h1 class="reset">Connexion</h1>
+      <form id="login-form" action="/user/login" method="post">
+        <input
+          type="text"
+          id="email"
+          name="email"
+          placeholder="Votre adresse email"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Mot de passe"
+          required
+        />
+        <button id="login_button" type="submit">Se connecter</button>
+      </form>
+      <p>
+        Mot de passe oublié ? <a href="/ask-reset">Réinitialiser le mot de passe</a>
+      </p>
+      <p>
+        Vous n'avez pas de compte ? <a href="/register">Inscrivez-vous</a>
+      </p>
+    </div>
+    
+  </body>
+</html>
