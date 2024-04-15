@@ -5,8 +5,7 @@ __pycache__/
 
 *.so
 
-# DataBase
-orders/utils/db.py
+
 
 # Distribution / packaging
 .Python
