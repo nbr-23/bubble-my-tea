@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+#import connect_to_database from 'orders\utils\db.py'
 from pathlib import Path
 import os
 
@@ -40,12 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'orders'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 MIDDLEWARE = [
@@ -85,9 +90,12 @@ WSGI_APPLICATION = 'bubblemytea.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bubbles', 
+        'USER': 'root', 
+        'PASSWORD': 'Janvier9.@',  
+        'HOST': 'localhost',  
+        'PORT': '3306', 
     }
 }
 

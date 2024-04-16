@@ -3,30 +3,57 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.tokens import RefreshToken
+import mysql.connector
+from mysql.connector import Error
+from ..utils.db import get_db_connection
+
+from orders.models.users import User
 
 class LoginView(View):
-    form_class = AuthenticationForm
     template_name = 'login.html'
-    redirect_authenticated_user = True
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
 
     def get(self, request, *args, **kwargs):
-        # If the user is already logged in, redirect to the homepage.
-        if self.redirect_authenticated_user and self.request.user.is_authenticated:
-            return redirect(self.success_url)
-        
-        # Otherwise, display the login form
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(data=request.POST)
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        connection = get_db_connection()
+        
+        if connection is None:
+            return JsonResponse({'error': 'Database connection failed'}, status=500)
+        
+        try:
+            cursor = connection.cursor()
+            query = "SELECT id, password FROM users WHERE email = %s"
+            cursor.execute(query, (email,))
+            user_record = cursor.fetchone()
 
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect(self.success_url)
+            if user_record:
+                user_id, hashed_password = user_record
+                if check_password(password, hashed_password):
+                    # Create JWT tokens
+                    temp_user = User(username=email)
+                    temp_user.id = user_id  # Manually set the user ID to the fetched ID
 
-        # If the form is not valid, return to the form with an error message.
-        return render(request, self.template_name, {'form': form, 'error_message': 'Invalid username or password'})
+                    refresh = RefreshToken.for_user(temp_user)
+                    response = HttpResponseRedirect(self.success_url)
+                    response.set_cookie(key='refresh', value=str(refresh), httponly=True)
+                    response.set_cookie(key='access', value=str(refresh.access_token), httponly=True)
+                    return response
+                else:
+                    return render(request, self.template_name, {'error_message': 'Invalid password'})
+            else:
+                return render(request, self.template_name, {'error_message': 'Email not found'})
+
+        except mysql.connector.Error as err:
+            return JsonResponse({'error': f'SQL Error: {err}'}, status=500)
+        
+        finally:
+            cursor.close()
+            connection.close()
 

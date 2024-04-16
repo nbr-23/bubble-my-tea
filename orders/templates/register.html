@@ -11,7 +11,8 @@
   </header>
     <div id="login-container">
       <h1 class="reset">Inscription</h1>
-      <form id="login-form" action="/user/add" method="post">
+      <form id="login-form" action="{% url 'register' %}" method="post">
+        {% csrf_token %}
         <input
           type="text"
           id="lastname"

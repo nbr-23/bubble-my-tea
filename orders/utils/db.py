@@ -1,34 +1,16 @@
 import mysql.connector
+from mysql.connector import Error
 
-def connect_to_database():
+def get_db_connection():
     try:
-       
-        host = 'sql11.freesqldatabase.com'
-        database = 'sql11699181'
-        user = 'sql11699181'
-        password = 'ZfjSzeVCt2'
-        port = 3306
-
-        
         connection = mysql.connector.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port
+            host='localhost',
+            database='bubbles',
+            user='root',
+            password='Janvier9.@',
+            port='3306'
         )
-
-        if connection.is_connected():
-            print('Database connection successful.')
-            return connection
-        else:
-            print('Database connection failed.')
-            return None
-    except mysql.connector.Error as error:
-        print('Error connecting to the database:', error)
+        return connection
+    except Error as e:
+        print("Error while connecting to MySQL", e)
         return None
-
-
-if __name__ == "__main__":
-    db_connection = connect_to_database()
-

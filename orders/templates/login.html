@@ -12,7 +12,8 @@
   </header>
     <div id="login-container">
       <h1 class="reset">Connexion</h1>
-      <form id="login-form" action="/user/login" method="post">
+      <form id="login-form" action="" method="post">
+        {% csrf_token %}
         <input
           type="text"
           id="email"

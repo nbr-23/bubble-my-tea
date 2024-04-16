@@ -6,3 +6,7 @@ requirements.txt générer par la commande suivante : pip freeze > requirements.
 
 Après avoir fait un pull il faut exécuter la commande : pip install -r requirements.txt
 pour installer toutes les dépendances du projet 
+
+===========
+
+![UML](Diagramme.png)
