@@ -3,12 +3,13 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 import mysql.connector
 from mysql.connector import Error
 from ..utils.db import get_db_connection
-from datetime import datetime
+
+User = get_user_model()
 
 class RegisterView(View):
     template_name = 'register.html'
@@ -18,8 +19,6 @@ class RegisterView(View):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        if 'logout' in request.path:
-            return self.logout_user(request)
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         email = request.POST.get('email')
@@ -28,14 +27,14 @@ class RegisterView(View):
 
         if password != confirm_password:
             return render(request, self.template_name, {
-                'error_message': 'Les mots de passe ne correspondent pas.'
+                'error_message': 'Passwords do not match.'
             })
 
         hashed_password = make_password(password)
         connection = get_db_connection()
         if connection is None:
             return render(request, self.template_name, {
-                'error_message': 'Connexion à la base de données échouée.'
+                'error_message': 'Database connection failed.'
             })
 
         try:
@@ -46,18 +45,20 @@ class RegisterView(View):
             """
             cursor.execute(query, (firstname, lastname, email, hashed_password, False))
             connection.commit()
+            user_id = cursor.lastrowid  # Get the ID of the last inserted row
 
-            # Temporarily create a user instance for JWT generation (not saved to db)
-            temp_user = User(username=email)
-            temp_user.id = cursor.lastrowid  # Use the ID of the last inserted row
+            # Manually configure the session
+            request.session['user_id'] = user_id
+            request.session['email'] = email
 
-            # Generate JWT tokens
-            refresh = RefreshToken.for_user(temp_user)  # This method now should not raise an error
+            # Create a temporary user instance for JWT generation
+            temp_user = User(id=user_id, email=email, password=hashed_password)
+            refresh = RefreshToken.for_user(temp_user)
             
             tokens = {
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                }
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }
             response = JsonResponse(tokens)
             response.set_cookie(key='refresh', value=str(refresh), httponly=True)
             response.set_cookie(key='access', value=str(refresh.access_token), httponly=True)
@@ -65,40 +66,8 @@ class RegisterView(View):
 
         except mysql.connector.Error as err:
             return render(request, self.template_name, {
-                'error_message': f'Erreur lors de l’enregistrement de l’utilisateur: {err}'
+                'error_message': f'Error during user registration: {err}'
             })
         finally:
             cursor.close()
             connection.close()
-
-    def blacklist_refresh_token(refresh_token, connection):
-        try:
-            cursor = connection.cursor()
-            blacklisted_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            query = """
-            INSERT INTO token_blacklist_blacklistedtoken (token_id, blacklisted_at)
-            SELECT id, %s FROM token_blacklist_outstandingtoken WHERE token = %s;
-            """
-            cursor.execute(query, (blacklisted_at, refresh_token))
-            connection.commit()
-        except mysql.connector.Error as err:
-            print("Failed to insert token into blacklist:", err)
-        finally:
-            cursor.close()
-
-    def logout_user(self, request):
-        refresh_token = request.COOKIES.get("refresh")  # Changed to get the token from cookies
-        if not refresh_token:
-            return JsonResponse({'error': 'No refresh token provided'}, status=400)
-
-        connection = get_db_connection()
-        if connection is None:
-            return JsonResponse({'error': 'Database connection failed'}, status=500)
-
-        self.blacklist_refresh_token(refresh_token, connection)
-        connection.close()
-
-        response = HttpResponseRedirect(reverse_lazy('login'))
-        response.delete_cookie('refresh')  # Assuming the refresh token is stored in a cookie named 'refresh'
-        response.delete_cookie('access')   # Also delete the access token cookie if it exists
-        return response

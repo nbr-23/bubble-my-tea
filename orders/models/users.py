@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
 class User(models.Model):
     first_name = models.CharField(max_length=50)
@@ -14,3 +15,4 @@ class User(models.Model):
     class Meta:
         db_table = 'Users'
         app_label = 'orders'
+

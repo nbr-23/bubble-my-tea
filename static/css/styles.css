@@ -61,7 +61,7 @@ html, body{
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width:90%;
+    width:100%;
   
   }
   input[type="email"],
@@ -237,4 +237,8 @@ html, body{
   .link_menu {
     display: block;
     margin: 0 auto; /* This will center the button horizontally */
+  }
+
+  nav, #side{ 
+    background-color: #111827 !important;
   }
