@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <a href="{% url 'product_add' %}">Ajouter</a>
+    <ul>
+        {% for product in products %}
+            <li>
+                {{ product.name }} - {{ product.description }} - ${{ product.price }} - 
+                <img src="/static/img/{{ product.picture }}" alt="{{ product.name }}">
+                <form action="{% url 'product_update' product.id %}" method="get" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Mettre à jour</button>
+                </form>
+                <form action="{% url 'product_delete' product.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
