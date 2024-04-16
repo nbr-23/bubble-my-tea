@@ -5,7 +5,7 @@ try:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'bubbles', 
             'USER': 'root', 
-            'PASSWORD': '',  
+            'PASSWORD': 'Janvier9.@',  
             'HOST': 'localhost',  
             'PORT': '3306', 
             'OPTIONS': {
