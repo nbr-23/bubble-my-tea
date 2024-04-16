@@ -10,7 +10,7 @@ class ProductUpdateView(TemplateView):
     template_name = 'product_update.html'
     
     def get(self, request, product_id):
-        # Retrieve the product instance for editing
+   
         product = get_object_or_404(Products, id=product_id)
         return render(request, self.template_name, {'product': product})
     
@@ -20,10 +20,10 @@ class ProductUpdateView(TemplateView):
         price = request.POST.get('price')
         picture = request.FILES.get('picture')
 
-        # Retrieve the product instance for editing
+       
         product = get_object_or_404(Products, id=product_id)
 
-        # Update product details
+       
         with connection.cursor() as cursor:
             update_query = "UPDATE Products SET "
             params = []
@@ -41,23 +41,23 @@ class ProductUpdateView(TemplateView):
                 params.append(price)
 
             if picture:
-                # Check if the uploaded file is an image
+               
                 if picture.content_type.startswith('image'):
-                    # Save the uploaded file to the 'img' directory
+                   
                     fs = FileSystemStorage(location='orders/static/img/')
                     filename = fs.save(picture.name, picture)
                     picture_path = os.path.join(filename)
                     update_query += "picture = %s, "
                     params.append(picture_path)
 
-            # Remove the trailing comma and space
-            update_query = update_query[:-2]
+        
+            update_query = update_query[:-2] # to remove the ; and space from the end of the query
 
-            # Add the WHERE clause
+           
             update_query += " WHERE id = %s"
             params.append(product_id)
 
-            # Execute the update query
+          
             cursor.execute(update_query, params)
 
         return redirect('/product')
