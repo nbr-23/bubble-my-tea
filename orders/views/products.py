@@ -1,6 +1,11 @@
-from django.shortcuts import render
-from .models import Products
+from django.views.generic import TemplateView
 
-def product_list(request):
-    products = Products.objects.all()
-    return render(request, 'product_list.html', {'products': products})
+
+
+class ProductListView(TemplateView):
+    template_name = 'order.html'
+"""
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Products.objects.all()
+        return context"""
