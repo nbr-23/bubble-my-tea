@@ -3,7 +3,8 @@ from orders.models.products import Products
 from django.shortcuts import render
 from django.db import connection
 from django.shortcuts import redirect
-
+from django.core.files.storage import FileSystemStorage  
+import os
 
 
 class ProductAddView(TemplateView):
@@ -16,7 +17,10 @@ class ProductAddView(TemplateView):
         picture = request.FILES.get('picture')
         if picture:            
             if picture.content_type.startswith('image'):               
-                picture_path = 'orders/static/img' + picture.name
+               
+                fs = FileSystemStorage(location='orders/static/img/')
+                filename = fs.save(picture.name, picture)
+                picture_path = os.path.join('img', filename)
             else:
                 pass
         else:

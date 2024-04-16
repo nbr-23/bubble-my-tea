@@ -9,7 +9,7 @@
     <h1>Product List</h1>
    <ul>
         {% for product in products %}
-            <li>{{ product.name }} - {{ product.description }} - ${{ product.price }} - ${{ product.picture}}</li>
+            <li>{{ product.name }} - {{ product.description }} - ${{ product.price }} - <img src="/static/img/{{ product.picture }}" alt="{{ product.name }}"></li>
         {% endfor %}
     </ul>
 </body>
