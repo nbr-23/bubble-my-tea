@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Product List</h1>
+    <a href="{% url 'product_add' %}">Ajouter</a>
     <ul>
         {% for product in products %}
             <li>
