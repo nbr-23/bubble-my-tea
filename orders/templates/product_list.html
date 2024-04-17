@@ -14,27 +14,30 @@
         <div class="flex items-center justify-start rtl:justify-end">
         <a href="/" class="flex ms-2 md:me-24">
             <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
-            <a href="{% url 'product_add' %}" class="flex items-center p-2  rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
-              <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 2H3c-1.104 0-2 .896-2 2v16c0 1.104.896 2 2 2h18c1.104 0 2-.896 2-2V4c0-1.104-.896-2-2-2zM3 20V9h18v11H3zm14-9h-4V5h4v6z"/>
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap text-white ">Ajouter</span>
-           </a>
+            
         </a>
-        </div>
-        <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
-          {% csrf_token %}
-          <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
-              <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
-                </svg>
-              <span class=" ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+      </div>
+     
+        <div class="flex items-center justify-start rtl:justify-end">
+          <a href="{% url 'product_add' %}" class="flex mr-1 ">
+              <span class="  text-white mr-3 ">Ajouter un produit</span>
           </a>
-      </form>  
+          <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+              {% csrf_token %}
+              <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                  <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                    </svg>
+                  <span class=" ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+              </a>
+          </form>
+          
+      </div>
+        
     </div>
     </div>
   </nav>
-  <div  id="login-container">
+  <div  id="product-container">
    <ul role="list" class="divide-y divide-gray-100">
           {% for product in products %}
           <li class="flex justify-between gap-x-6 py-5">

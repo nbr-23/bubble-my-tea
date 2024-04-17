@@ -8,20 +8,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
   </head>
   <body>
-  <nav class="fixed top-0 z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
-    <div class="flex items-center justify-between">
-        <div class="flex items-center justify-start rtl:justify-end">
-        <a href="/" class="flex ms-2 md:me-24">
-            <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
-        </a>
+    <nav class="fixed top-0 z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <a href="/" class="flex ms-2 md:me-24">
+                        <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
+                    </a>
+                </div>
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <a href="{% url 'products_list' %}" class="flex mr-1 ">
+                        <span class="  text-white mr-3 ">Gestion des produits</span>
+                    </a>
+                    <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+                        {% csrf_token %}
+                        <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                            <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                              </svg>
+                            <span class=" ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+                        </a>
+                    </form>
+                    
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-  </nav>
+    </nav>
+    
   
     <div id="login-container">
-      <h1 class="reset font-semibold text-xl">Ajouter un produit</h1>
+      <h1 class="reset font-semibold text-2xl">Ajouter un produit</h1>
       <div id="login-container" class=" w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form class="space-y-6"action="" enctype="multipart/form-data" method="post"> 
           {% csrf_token %}

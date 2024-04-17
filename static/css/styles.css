@@ -59,7 +59,7 @@ body{
   #login-container,
   #chat-container {
     max-width: 600px;
-    margin-top: 7%;
+    margin-top: 10%;
     margin-bottom: 3%;
     padding: 20px;
     border: 1px solid #ddd;
