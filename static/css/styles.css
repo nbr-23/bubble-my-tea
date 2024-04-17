@@ -1,6 +1,8 @@
-html, body{
-    margin: 0px;
-    padding: 0px;
+body{
+
+    display: flex;
+    justify-content: center;
+    
   }
   
   header{
@@ -54,15 +56,14 @@ html, body{
     
   }
   
-  #login-container,
-  #chat-container {
-    max-width: 600px;
-    margin:auto;
+  #login-container{
+    max-width: 900px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     width:100%;
-  
+    margin-top: 10%;
+
   }
   input[type="email"],
   input[type="text"],
@@ -220,10 +221,7 @@ html, body{
     text-align: center;
   }
   
-  #login-container{
-    margin-top: 5%;
-  }
-  
+
   .user-option, .channel-option{
     text-align: center;
   
