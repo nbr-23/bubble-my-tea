@@ -49,7 +49,11 @@
               </div>
             </div>
             <div class=" shrink-0 sm:flex sm:flex-col sm:items-end">
-              <form action="{% url 'product_update' product.id %}" method="get">
+              <form action="{% url 'product_show' product.id %}" method="get">
+                {% csrf_token %}
+              <button class="lex w-full" type="submit" >Détails</button>
+            </form>
+            <form action="{% url 'product_update' product.id %}" method="get">
                 {% csrf_token %}
               <button class="lex w-full" type="submit" >Mettre à jour</button>
             </form>
