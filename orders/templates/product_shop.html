@@ -19,6 +19,9 @@
       </div>
      
         <div class="flex items-center justify-start rtl:justify-end">
+        <a href="{% url 'order_items' %}" class="flex mr-1 ">
+            <span class="  text-white mr-3 ">Panier</span>
+        </a>  
           
           {% if user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
