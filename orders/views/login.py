@@ -32,6 +32,7 @@ class LoginView(View):
             query = "SELECT id, password FROM users WHERE email = %s"
             cursor.execute(query, (email,))
             user_record = cursor.fetchone()
+            cursor.fetchall()
 
             if user_record:
                 user_id, hashed_password = user_record
