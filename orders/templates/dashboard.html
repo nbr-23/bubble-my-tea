@@ -13,13 +13,20 @@
 
     <nav class="fixed top-0 z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start rtl:justify-end">
-            <a href="" class="flex ms-2 md:me-24">
-                <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
-            </a>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                <a href="{% url 'product_shop' %}" class="flex ms-2 md:me-24">
+                    <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
+                </a>
+                
+                </div>
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <a href="{% url 'product_shop' %}" class="flex mr-1 ">
+                        <span class="  text-white mr-3 ">Boutique</span>
+                    </a>
             </div>
-        </div>
+            </div>
+            
         </div>
     </nav>
   
