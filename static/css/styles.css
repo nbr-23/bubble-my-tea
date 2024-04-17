@@ -56,14 +56,26 @@ body{
     
   }
   
-  #login-container{
+  #login-container,
+  #chat-container {
+    max-width: 600px;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width:100%;
+  
+  }
+
+
+  #product-container{
     max-width: 900px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     width:100%;
     margin-top: 10%;
-
   }
   input[type="email"],
   input[type="text"],
