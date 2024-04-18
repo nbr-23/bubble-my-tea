@@ -1,39 +1,116 @@
+
+            
+
+<!--Une page de commande, afin que l'utilisateur puisse commander de nouveaux Bubble Tea
+Sur cette page il est possible d'ajouter différentes boissons à sa commande
+Pour chaque produit, il doit être possible de modifier les poppings et la quantité de sucre
+
++ champ avec  option sucre et poppings
+-->
+
+
+
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panier</title>
-</head>
-<body>
-    <h1>Panier</h1>
-    
-    {% if cart_items %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Quantité</th>
-                    <th>Prix unitaire</th>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add | Bubble </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <nav class="fixed top-0 z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <a href="/" class="flex ms-2 md:me-24">
+                        <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
+                    </a>
+                </div>
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <a href="{% url 'products_list' %}" class="flex mr-1 ">
+                        <span class="  text-white mr-3 ">Gestion des produits</span>
+                    </a>
+                    <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+                        {% csrf_token %}
+                        <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                            <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                              </svg>
+                            <span class=" ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+                        </a>
+                    </form>
                     
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.price }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+  
+    <div id="login-container">
+
+       
+      <h1 class="reset font-semibold text-2xl mb-3">Panier</h1>
+
+<div class="relative overflow-x-auto">
+    {% if order_items %}
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                
+                <th scope="col" class="px-6 py-3">
+                    Articles
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantité
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Sucre
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Perles
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Prix unitaire
+                </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ item.product.name }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ item.quantity }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ item.sugar_level}}
+                </td>
+                <td class="px-6 py-4">
+                    {{ item.toppings}}
+                </td>
+                <td class="px-6 py-4">
+                    {{ item.product.price }}
+                </td>
+               
+                
+            </tr>
+       
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="flex items-center justify-start rtl:justify-end ">
+       <span class="flex items-center border border-b p-2 rounded-lg mt-2 ">Total : {{ total_price }} €</span>
+    </div>
+    
     {% else %}
         <p>Votre panier est vide.</p>
     {% endif %}
-
-   
-
-   
-</body>
+</div>
+<button class="font-bold border border-gray-200">Payer</button>
+      </div>
+  </body>
 </html>
