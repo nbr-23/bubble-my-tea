@@ -2,60 +2,44 @@
 
 {% block title %}Dashboard | Bubble{% endblock %}
 {% block content %}
-    <div class="mt-7 w-full">
-
-        <div class="relative overflow-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Date de la commande
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Prix
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+<div class="mt-7 w-full">
+    <div class="relative overflow-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Date de la commande</th>
+                    <th scope="col" class="px-6 py-3">Produit</th>
+                    <th scope="col" class="px-6 py-3">Quantité</th>
+                    <th scope="col" class="px-6 py-3">Garnitures</th>
+                    <th scope="col" class="px-6 py-3">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                        {{ order.OrderDate }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ order.ProductName }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ order.Quantity }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ order.Toppings }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ order.TotalPrice }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <td colspan="6" class="px-6 py-4 text-center text-gray-900 dark:text-white">Aucune commande trouvée</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
 {% endblock %}
