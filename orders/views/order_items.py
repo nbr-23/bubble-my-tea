@@ -15,7 +15,6 @@ class OrderItemsView(TemplateView):
     
     TOPPINGS_CHOICES = [
         ('None', ('Sans topping')),
-        ('Boba', ('Boba + 0,50 €')),
         ('Popping Boba', ('Popping Boba + 0,50 €')),
         ('Jelly', ('Jelly + 0,50 €')),
     ]
@@ -55,17 +54,13 @@ class OrderItemsView(TemplateView):
         # Get the product IDs from the form data
         product_ids = request.POST.getlist('product_id')
         # Loop through the product IDs and add them to the order
+        
+
+        
         for product_id in product_ids:
             # Get the product object
             product = Product.objects.get(pk=product_id)
-            # Create a new OrderItem
-            order_item = OrderItem.objects.create(
-                product=product,
-                quantity=1,  
-                sugar_level='Normal', 
-                toppings='None'  
-            )
-            order_item.order = user_order
+       
             
             sql_query = "INSERT INTO OrderItem (order_id, product_id, quantity, sugar_level, toppings) VALUES (%s, %s, %s, %s, %s)"
             values = (order_id, product_id, 1, 'Normal', 'None') 
