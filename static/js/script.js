@@ -19,14 +19,14 @@ function changeQuantity(type, id) {
 }
 
 
-function addToCart(productId, quantity) {
+function addToCart(productId, quantity, sugarLevel, toppings) {
     fetch("/add_to_cart/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRFToken': getCookie('csrftoken')
         },
-        body: `product_id=${productId}&quantity=${quantity}`
+        body: `product_id=${productId}&quantity=${quantity}&sugar_level=${sugarLevel}&toppings=${toppings}`
     })
     .then(response => {
         if (!response.ok) {
@@ -44,9 +44,9 @@ function addToCart(productId, quantity) {
                 successMessage.classList.add('hidden');
             }, 3000);
         } else {
-            console.log(data.message);  // Optionnel, pour le debugging
+            console.log(data.message);  // Optional, for debugging
             const successMessage = document.getElementById('successMessageShop');
-            successMessage.textContent = data.message;  // 'Produit ajouté au panier'
+            successMessage.textContent = data.message;  // 'Product added to cart successfully'
             successMessage.classList.remove('hidden');
             setTimeout(() => {
                 successMessage.classList.add('hidden');
@@ -54,9 +54,9 @@ function addToCart(productId, quantity) {
         }
     })
     .catch(error => {
-        console.error('Erreur lors de l\'ajout au panier:', error);
+        console.error('Error adding item to cart:', error);
         const successMessage = document.getElementById('successMessageShop');
-        successMessage.textContent = "Erreur lors de l'ajout au panier: " + error.message;
+        successMessage.textContent = "Error adding item to cart: " + error.message;
         successMessage.classList.remove('hidden');
         setTimeout(() => {
             successMessage.classList.add('hidden');
