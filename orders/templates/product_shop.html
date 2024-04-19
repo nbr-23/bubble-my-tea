@@ -48,39 +48,40 @@
         <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">SHOP PAGE</h2>
             <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                {% for product in products %}
-                <div class="group relative mr-3 ml-3">
+              {% for product in products %}
+              <div class="group relative mr-3 ml-3">
                   <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 relative">
-                    
-                    
                       <img src="{% static 'img/' %}{{ product.picture }}" alt="{{ product.name }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-                    
-                
-                    
-                    <!--<div class="absolute top-0 right-0 p-2 shadow-white">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue hover:text-orange-300 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" fill="currentColor" d="M10 18a2 2 0 100-4 2 2 0 000 4zM6 8V7a5 5 0 1110 0v1a1 1 0 01-2 0V7a3 3 0 00-6 0v1a1 1 0 01-2 0zm10 0h-2a3 3 0 00-6 0H4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" clip-rule="evenodd" />
-                    </svg>
-                    </div>-->
-                </div>
-                <div class="mt-4 flex justify-between">
-                    <div>
-                        <h3 class="text-sm text-gray-700">
-                            <a href="{% url 'product_shop_show' product.id %}">
-                                <span  class="font-medium">
-                                {{ product.name }}</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <p class="text-sm font-medium text-gray-900">{{ product.price }} €</p>
-                </div>
+                  </div>
+                  <div class="mt-4 flex justify-between">
+                      <div>
+                          <h3 class="text-sm text-gray-700">
+                              <a href="{% url 'product_shop_show' product.id %}">
+                                  <span class="font-medium">{{ product.name }}</span>
+                              </a>
+                          </h3>
+                      </div>
+                      <p class="text-sm font-medium text-gray-900">{{ product.price }} €</p>
+                  </div>
+                  <div class="mt-4 flex items-center">
+                      <button onclick="changeQuantity('dec', '{{ product.id }}')">-</button>
+                      <input type="text" id="quantity_{{ product.id }}" value="1" class="mx-2 border text-center w-8" readonly>
+                      <button onclick="changeQuantity('inc', '{{ product.id }}')">+</button>
+                      <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="addToCart('{{ product.id }}', document.getElementById('quantity_{{ product.id }}').value)">
+                        <svg class="w-[37px] h-[37px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12.268 6A2 2 0 0 0 14 9h1v1a2 2 0 0 0 3.04 1.708l-.311 1.496a1 1 0 0 1-.979.796H8.605l.208 1H16a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L4.686 5H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 .979.796L6.939 6h5.329Z"/>
+                          <path d="M18 4a1 1 0 1 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0V8h2a1 1 0 1 0 0-2h-2V4Z"/>
+                        </svg>
+                        
+                      </button>
+                  </div>
               </div>
-             
               {% endfor %}
+              
             </div>
         </div>
     </div>
 </div>
-
+  <script src="{% static 'js/script.js' %}" ></script>
   </body>
 </html>
