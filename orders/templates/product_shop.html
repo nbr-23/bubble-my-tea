@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connexion | Bubble </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+  <nav class="fixed top-0  z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start rtl:justify-end">
+        <a href="/" class="flex ms-2 md:me-24">
+            <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
+            
+        </a>
+      </div>
+     
+        <div class="flex items-center justify-start rtl:justify-end">
+        <a href="{% url 'order_items' %}" class="flex mr-1 ">
+            <span class="  text-white mr-3 ">Panier</span>
+        </a>  
+          
+          {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+                {% csrf_token %}
+                <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                    <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                    </svg>
+                    <span class="ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+                </a>
+            </form>
+          {% else %}
+            <form action="{% url 'login' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+              {% csrf_token %}
+              <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                <svg class="w-6 h-6 text-gray-500 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                  <span class="ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se connecter</span>
+              </a>
+            </form>
+          {% endif %}
+      </div>    
+    </div>
+    </div>
+  </nav>
+
+  <div id="product-shop-container">
+    <div class="bg-white">
+        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">SHOP PAGE</h2>
+            <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                {% for product in products %}
+                <div class="group relative mr-3 ml-3">
+                  <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 relative">
+                    
+                    
+                      <img src="{% static 'img/' %}{{ product.picture }}" alt="{{ product.name }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                    
+                
+                    
+                    <!--<div class="absolute top-0 right-0 p-2 shadow-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue hover:text-orange-300 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" fill="currentColor" d="M10 18a2 2 0 100-4 2 2 0 000 4zM6 8V7a5 5 0 1110 0v1a1 1 0 01-2 0V7a3 3 0 00-6 0v1a1 1 0 01-2 0zm10 0h-2a3 3 0 00-6 0H4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" clip-rule="evenodd" />
+                    </svg>
+                    </div>-->
+                </div>
+                <div class="mt-4 flex justify-between">
+                    <div>
+                        <h3 class="text-sm text-gray-700">
+                            <a href="{% url 'product_shop_show' product.id %}">
+                                <span  class="font-medium">
+                                {{ product.name }}</span>
+                            </a>
+                        </h3>
+                    </div>
+                    <p class="text-sm font-medium text-gray-900">{{ product.price }} €</p>
+                </div>
+              </div>
+             
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+  </body>
+</html>
