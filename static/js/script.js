@@ -18,29 +18,50 @@ function changeQuantity(type, id) {
     }
 }
 
-function addToCart(productId, quantity) {
-    console.log('Ajout au panier:', productId, 'Quantité:', quantity);
-}
-
 
 function addToCart(productId, quantity) {
-    fetch("/add_to_cart/", {  // Utilisez l'alias 'add_to_cart' si configuré pour générer l'URL
+    fetch("/add_to_cart/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': getCookie('csrftoken')  // Obtenez le CSRF token depuis les cookies
+            'X-CSRFToken': getCookie('csrftoken')
         },
         body: `product_id=${productId}&quantity=${quantity}`
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.error) {
-            alert(data.error);
+            console.error(data.error);
+            const successMessage = document.getElementById('successMessageShop');
+            successMessage.textContent = "Erreur : " + data.error;
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
         } else {
-            alert(data.message);  // Affiche 'Produit ajouté au panier'
+            console.log(data.message);  // Optionnel, pour le debugging
+            const successMessage = document.getElementById('successMessageShop');
+            successMessage.textContent = data.message;  // 'Produit ajouté au panier'
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
         }
     })
-    .catch(error => console.error('Erreur lors de l\'ajout au panier:', error));
+    .catch(error => {
+        console.error('Erreur lors de l\'ajout au panier:', error);
+        const successMessage = document.getElementById('successMessageShop');
+        successMessage.textContent = "Erreur lors de l'ajout au panier: " + error.message;
+        successMessage.classList.remove('hidden');
+        setTimeout(() => {
+            successMessage.classList.add('hidden');
+        }, 3000);
+    });
 }
 
 function getCookie(name) {
@@ -57,3 +78,24 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
+function removeItem(itemId) {
+    fetch(`{% url 'remove_from_cart' %}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ 'item_id': itemId })
+    }).then(response => response.json())
+      .then(data => {
+        if (data.success) {
+            window.location.reload();  // Reload the page to update the cart
+        } else {
+            alert('There was an error removing the item.');
+        }
+    });
+}
+
+

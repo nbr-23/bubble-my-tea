@@ -7,6 +7,8 @@ from orders.views.product_show import ProductShowView
 from orders.views.product_shop import ProductShopView
 from orders.views.product_shop_show import ProductShopShowView
 from orders.views.add_to_cart import AddToCartView
+from orders.views.remove_from_cart import RemoveCartItemView
+from orders.views.update_cart import UpdateCartItemView
 
 urlpatterns = [
     path('product/', ProductListView.as_view(), name='products_list'),
@@ -17,4 +19,6 @@ urlpatterns = [
     path('product/update/<int:product_id>/', ProductUpdateView.as_view(), name='product_update'),
     path('product/delete/<int:product_id>/', ProductDeleteView.as_view(), name='product_delete'),
     path('add_to_cart/', AddToCartView.as_view(), name='add_to_cart'),
+     path('remove_from_cart/', RemoveCartItemView.as_view(), name='remove_from_cart'),
+     path('update_cart/', UpdateCartItemView.as_view(), name='update_cart'),
 ]

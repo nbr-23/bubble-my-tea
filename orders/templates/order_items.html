@@ -49,68 +49,42 @@ Pour chaque produit, il doit être possible de modifier les poppings et la quant
     
   
     <div id="login-container">
-
-       
-      <h1 class="reset font-semibold text-2xl mb-3">Panier</h1>
-
-<div class="relative overflow-x-auto">
-    {% if order_items %}
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                
-                <th scope="col" class="px-6 py-3">
-                    Articles
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quantité
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Sucre
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Perles
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Prix unitaire
-                </th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in order_items %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ item.product.name }}
-                </th>
-                <td class="px-6 py-4">
-                    {{ item.quantity }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ item.sugar_level}}
-                </td>
-                <td class="px-6 py-4">
-                    {{ item.toppings}}
-                </td>
-                <td class="px-6 py-4">
-                    {{ item.product.price }}
-                </td>
-               
-                
-            </tr>
-       
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="flex items-center justify-start rtl:justify-end ">
-       <span class="flex items-center border border-b p-2 rounded-lg mt-2 ">Total : {{ total_price }} €</span>
-    </div>
-    
-    {% else %}
+    <h1 class="reset font-semibold text-2xl mb-3">Panier</h1>
+    <div class="relative overflow-x-auto">
+        {% if order_items %}
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Article</th>
+                    <th scope="col" class="px-6 py-3">Quantité</th>
+                    <th scope="col" class="px-6 py-3">Sucre</th>
+                    <th scope="col" class="px-6 py-3">Perles</th>
+                    <th scope="col" class="px-6 py-3">Prix unitaire</th>
+                    <th scope="col" class="px-6 py-3">Prix total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">{{ item.product_name }}</td>
+                    <td class="px-6 py-4">{{ item.quantity }}</td>
+                    <td class="px-6 py-4">{{ item.sugar_level }}</td>
+                    <td class="px-6 py-4">{{ item.toppings }}</td>
+                    <td class="px-6 py-4">{{ item.unit_price }} €</td>
+                    <td class="px-6 py-4">{{ item.total_price }} €</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="flex items-center justify-start rtl:justify-end p-4">
+            <span class="text-lg font-bold">Total : {{ total_price }} €</span>
+        </div>
+        {% else %}
         <p>Votre panier est vide.</p>
-    {% endif %}
+        {% endif %}
+    </div>
+    <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Payer</button>
 </div>
-<button class="font-bold border border-gray-200">Payer</button>
-      </div>
+
   </body>
 </html>
