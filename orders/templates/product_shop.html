@@ -19,31 +19,25 @@
       </div>
      
         <div class="flex items-center justify-start rtl:justify-end">
+
+        <a href="{% url 'dashboard' %}" class="flex mr-1 ">
+          <span class="  text-white mr-3 ">Dashboard</span>
+        </a> 
+
         <a href="{% url 'order_items' %}" class="flex mr-1 ">
             <span class="  text-white mr-3 ">Panier</span>
         </a>  
           
-          {% if user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
-                {% csrf_token %}
-                <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
-                    <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
-                    </svg>
-                    <span class="ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
-                </a>
-            </form>
-          {% else %}
-            <form action="{% url 'login' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
-              {% csrf_token %}
-              <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
-                <svg class="w-6 h-6 text-gray-500 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        <form action="{% url 'logout' %}" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-800 dark:hover:bg-gray-700 group">
+            {% csrf_token %}
+            <a href="javascript:;" onclick="this.closest('form').submit()" class="flex items-center justify-start w-full text-gray-900 dark:text-white">
+                <svg class="w-[38px] h-[38px] text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                 </svg>
-                  <span class="ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se connecter</span>
-              </a>
-            </form>
-          {% endif %}
+                <span class="ml-2 whitespace-nowrap text-gray-400 group-hover:text-white">Se déconnecter</span>
+            </a>
+        </form>
+        
       </div>    
     </div>
     </div>

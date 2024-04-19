@@ -32,7 +32,7 @@ class DashboardView(TemplateView):
             FROM
                 orders o
                 INNER JOIN users u ON o.user_id = u.id
-                INNER JOIN orderitem oi ON o.id = oi.order_id
+                INNER JOIN OrderItem oi ON o.id = oi.order_id
                 INNER JOIN Products p ON oi.product_id = p.id
             WHERE
                 u.id = %s
