@@ -2,89 +2,59 @@ from django.views.generic import TemplateView
 from orders.models.products import Products
 from django.shortcuts import redirect, get_object_or_404
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import os
 from django.db import connection
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from orders.models.users import User 
 
-
-
 class ProductUpdateView(TemplateView):
     template_name = 'product_update.html'
-    
-    def dispatch(self, request, *args, **kwargs):
-        # Check if 'user_id' is in the session
-        if 'user_id' not in request.session:
-            # Redirect to the login page if the user is not logged in
-            return HttpResponseRedirect(reverse_lazy('login'))
-       
-        user_id = request.session['user_id']
 
+    def get(self, request, product_id):
+        # Vérifie si l'utilisateur est authentifié
+        if 'user_id' not in request.session:
+            return HttpResponseRedirect(reverse_lazy('login'))
+        
+        # Vérifie si l'utilisateur est admin
+        user_id = request.session['user_id']
         try:
             user = User.objects.get(id=user_id)
             is_admin = user.is_admin
         except User.DoesNotExist:
             is_admin = False
         
-        context = {
-        'is_admin': is_admin
-        }
+        context = {'is_admin': is_admin}
 
-       
-        return super().get(request, *args, **kwargs, **context)
-    
-    
-    def get(self, request, product_id):
-   
+        # Obtient l'objet produit
         product = get_object_or_404(Products, id=product_id)
-        return render(request, self.template_name, {'product': product})
-    
+        context['product'] = product
+
+        return render(request, self.template_name, context)
+
     def post(self, request, product_id):
+        # Récupère les données du formulaire
         name = request.POST.get('name')
         description = request.POST.get('description')
         price = request.POST.get('price')
         picture = request.FILES.get('picture')
 
-       
+        # Obtient l'objet produit
         product = get_object_or_404(Products, id=product_id)
 
-       
-        with connection.cursor() as cursor:
-            update_query = "UPDATE Products SET "
-            params = []
+        # Met à jour les champs du produit
+        if name:
+            product.name = name
+        if description:
+            product.description = description
+        if price:
+            product.price = price
+        if picture:
+            product.picture = picture
 
-            if name:
-                update_query += "name = %s, "
-                params.append(name)
+        # Enregistre les modifications dans la base de données
+        product.save()
 
-            if description:
-                update_query += "description = %s, "
-                params.append(description)
-
-            if price:
-                update_query += "price = %s, "
-                params.append(price)
-
-            if picture:
-               
-                if picture.content_type.startswith('image'):
-                   
-                    fs = FileSystemStorage(location='orders/static/img/')
-                    filename = fs.save(picture.name, picture)
-                    picture_path = os.path.join(filename)
-                    update_query += "picture = %s, "
-                    params.append(picture_path)
-
-        
-            update_query = update_query[:-2] # to remove the ; and space from the end of the query
-
-           
-            update_query += " WHERE id = %s"
-            params.append(product_id)
-
-          
-            cursor.execute(update_query, params)
-
+        # Redirige vers la page de liste des produits
         return redirect('/product')

@@ -64,6 +64,8 @@ function addToCart(productId, quantity, sugarLevel, toppings) {
     });
 }
 
+
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

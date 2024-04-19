@@ -9,6 +9,8 @@ from orders.views.product_shop_show import ProductShopShowView
 from orders.views.add_to_cart import AddToCartView
 from orders.views.remove_from_cart import RemoveCartItemView
 from orders.views.update_cart import UpdateCartItemView
+from orders.views.update_cart import UpdateCartItemView
+from orders.views.payment import ProcessPaymentView
 
 urlpatterns = [
     path('product/', ProductListView.as_view(), name='products_list'),
@@ -21,4 +23,6 @@ urlpatterns = [
     path('add_to_cart/', AddToCartView.as_view(), name='add_to_cart'),
      path('remove_from_cart/', RemoveCartItemView.as_view(), name='remove_from_cart'),
      path('update_cart/', UpdateCartItemView.as_view(), name='update_cart'),
+     path('process_payment/', ProcessPaymentView.as_view(), name='process_payment'),
+     
 ]

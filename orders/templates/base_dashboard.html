@@ -13,9 +13,13 @@
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
+                {% if not is_admin %}    
                 <a href="{% url 'product_shop' %}" class="flex ms-2 md:me-24">
                     <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
                 </a>
+                {% else %}
+                    <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
+                {% endif %}
                 
                 </div>
                 {% if not is_admin %}

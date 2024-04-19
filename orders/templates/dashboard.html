@@ -15,28 +15,33 @@
                     <th scope="col" class="px-6 py-3">Produit</th>
                     <th scope="col" class="px-6 py-3">Quantité</th>
                     <th scope="col" class="px-6 py-3">Garnitures</th>
-                    <th scope="col" class="px-6 py-3">Prix</th>
+                    <th scope="col" class="px-6 py-3">Prix unitaire</th>
+                    <th scope="col" class="px-6 py-3">Prix total</th>
                 </tr>
             </thead>
             <tbody>
                 {% for order in orders %}
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                    <td rowspan="{{ order.Items|length }}" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                         {{ order.OrderDate }}
                     </td>
-                    <td class="px-6 py-4">
-                        {{ order.ProductName }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ order.Quantity }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ order.Toppings }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ order.TotalPrice }}
-                    </td>
-                </tr>
+                    {% for item in order.Items %}
+                    {% if forloop.first %}
+                    <td class="px-6 py-4">{{ item.ProductName }}</td>
+                    <td class="px-6 py-4">{{ item.Quantity }}</td>
+                    <td class="px-6 py-4">{{ item.Toppings }}</td>
+                    <td class="px-6 py-4">{{ item.Price }} €</td>
+                    <td rowspan="{{ order.Items|length }}" class="px-6 py-4">{{ order.TotalPrice }} €</td>
+                    </tr>
+                    {% else %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">{{ item.ProductName }}</td>
+                    <td class="px-6 py-4">{{ item.Quantity }}</td>
+                    <td class="px-6 py-4">{{ item.Toppings }}</td>
+                    <td class="px-6 py-4">{{ item.Price }} €</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
                 {% empty %}
                 <tr class="bg-white dark:bg-gray-800">
                     <td colspan="6" class="px-6 py-4 text-center text-gray-900 dark:text-white">Aucune commande trouvée</td>
