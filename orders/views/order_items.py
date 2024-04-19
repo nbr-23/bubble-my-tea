@@ -1,5 +1,8 @@
 from django.views.generic import TemplateView
-from orders.models.products import Products  # Update this import based on your model location
+from django.http import JsonResponse
+from orders.models.products import Products
+import json
+import logging
 
 class OrderItemsView(TemplateView):
     template_name = 'order_items.html'
@@ -10,28 +13,33 @@ class OrderItemsView(TemplateView):
         order_items = []
         total_price = 0.0
 
+        if not cart:
+            logging.debug("Cart is empty")
+        
         for product_id, details in cart.items():
-            product = Products.objects.get(id=product_id)
-            sugar_level = details['sugar_level']
-            toppings = details['toppings']
-            quantity = details['quantity']
-            
-            extra_cost = 0.50 if toppings != 'None' else 0
-            unit_price = product.price + extra_cost
-            total_item_price = unit_price * quantity
+            try:
+                product = Products.objects.get(id=product_id)
+                extra_cost = 0.50 if details.get('toppings') != 'None' else 0
+                unit_price = product.price + extra_cost
+                total_item_price = unit_price * details.get('quantity', 0)
 
-            order_items.append({
-                'id': product_id,
-                'product_name': product.name,
-                'quantity': quantity,
-                'sugar_level': sugar_level,
-                'toppings': toppings,
-                'unit_price': unit_price,
-                'total_price': total_item_price,
-            })
+                order_items.append({
+                    'id': product_id,
+                    'product_name': product.name,
+                    'quantity': details.get('quantity', 0),
+                    'sugar_level': details.get('sugar_level', 'Unknown'),
+                    'toppings': details.get('toppings', 'None'),
+                    'unit_price': unit_price,
+                    'total_price': total_item_price,
+                })
 
-            total_price += total_item_price
+                total_price += total_item_price
+            except Products.DoesNotExist:
+                logging.error(f"Product with id {product_id} does not exist.")
+            except Exception as e:
+                logging.error(f"Error processing product {product_id}: {str(e)}")
 
         context['order_items'] = order_items
+        context['order_items_json'] = json.dumps(order_items) if order_items else "[]"
         context['total_price'] = total_price
         return context
