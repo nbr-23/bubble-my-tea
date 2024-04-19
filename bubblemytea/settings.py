@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bubbles', 
         'USER': 'root', 
-        'PASSWORD': 'Janvier9.@',  
+        'PASSWORD': '',  
         'HOST': 'localhost',  
         'PORT': '3306', 
     }

@@ -7,7 +7,7 @@ def get_db_connection():
             host='localhost',
             database='bubbles',
             user='root',
-            password='Janvier9.@',
+            password='',
             port='3306'
         )
         return connection
