@@ -3,6 +3,8 @@ from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from ..utils.db import get_db_connection
+from orders.models.users import User 
+
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
@@ -12,8 +14,19 @@ class DashboardView(TemplateView):
         if 'user_id' not in request.session:
             # Redirect to the login page if the user is not logged in
             return HttpResponseRedirect(reverse_lazy('login'))
+
         
         user_id = request.session['user_id']
+        
+        try:
+            user = User.objects.get(id=user_id)
+            if user.is_admin:
+                # If admin redirect admin interface
+                return redirect('products_list') 
+        except User.DoesNotExist:
+            pass 
+        
+     
 
         # Connect to the database
         conn = get_db_connection()
@@ -43,6 +56,8 @@ class DashboardView(TemplateView):
             results = cursor.fetchall()
         finally:
             conn.close()
+            
+     
 
         # Pass the results to the template
         return render(request, self.template_name, {'orders': results})

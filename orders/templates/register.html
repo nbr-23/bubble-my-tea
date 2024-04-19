@@ -1,23 +1,10 @@
+{% extends "navigation.html" %}
+
 {% load static %}
-<!DOCTYPE html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Inscription | Bubble</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-  </head>
-  <body>
-    <nav class="fixed top-0 z-50 w-full bg-zinc-900 border-b border-gray-700 dark:bg-gray-800 dark:border-gray-700">
-      <div class="px-3 py-3 lg:px-5 lg:pl-3">
-      <div class="flex items-center justify-between">
-          <div class="flex items-center justify-start rtl:justify-end">
-          <a href="/" class="flex ms-2 md:me-24">
-              <span class="self-center text-xl text-white sm:text-2xl whitespace-nowrap dark:text-white">Bubble My Tea</span>
-          </a>
-          </div>
-      </div>
-      </div>
-    </nav>
+
+{% block title %}Register | Bubble{% endblock %}
+
+{% block container %}
     <div id="login-container">
       
       <h1 class="reset font-semibold text-3xl">Inscription</h1>
@@ -66,6 +53,7 @@
         </div>
 
     </div>
+
+   
     
-  </body>
-</html>
+    {% endblock %}

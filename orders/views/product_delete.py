@@ -12,11 +12,10 @@ class ProductDeleteView(TemplateView):
         if 'user_id' not in request.session:
             # Redirect to the login page if the user is not logged in
             return HttpResponseRedirect(reverse_lazy('login'))
-        # If 'user_id' exists, retrieve additional information if necessary
-        # For example, check the validity of the token or other security checks
+
         user_id = request.session['user_id']
 
-        # Render page if everything is correct
+       
         return super().get(request, *args, **kwargs)
 
     def post(self, request, product_id):

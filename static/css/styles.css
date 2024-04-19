@@ -68,11 +68,10 @@ body{
   
   }
   #product-shop-container{
-    margin: 10%;
-    padding: 20px;
+    
     border: 1px solid #ddd;
     border-radius: 5px;
-    width:100%;
+    
     
   }
 

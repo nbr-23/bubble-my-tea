@@ -1,22 +1,13 @@
+{% extends "navigation.html" %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-    <title>Reset | Bubble</title>
-</head>
-<body>
-<header>
-    <p><a href="/">Bubble my Tea</a></p>
-    <div>
-        <a id="link_menu" href="/">Connexion</a>
-    </div>
-</header>
+
+{% block title %}Ask reset | Bubble{% endblock %}
+{% block container %}
+
 <div id="login-container">
     <div class="reset">
-        <h1>Modifier le mot de passe</h1>
+        <h1 class="mb-4 font-bold">Modifier le mot de passe</h1>
         <form action="/user/save-password" method="post">
            
             <input type="hidden" id="token" name="token" value="<%= token %>">
@@ -31,6 +22,4 @@
         </form>
     </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

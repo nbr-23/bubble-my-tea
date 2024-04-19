@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.core.files.storage import FileSystemStorage  
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-
+from orders.models.users import User 
 import os
 
 
@@ -18,12 +18,21 @@ class ProductAddView(TemplateView):
         if 'user_id' not in request.session:
             # Redirect to the login page if the user is not logged in
             return HttpResponseRedirect(reverse_lazy('login'))
-        # If 'user_id' exists, retrieve additional information if necessary
-        # For example, check the validity of the token or other security checks
+       
         user_id = request.session['user_id']
+        
+        try:
+            user = User.objects.get(id=user_id)
+            is_admin = user.is_admin
+        except User.DoesNotExist:
+            is_admin = False
+        
+        context = {
+        'is_admin': is_admin
+        }
 
-        # Render page if everything is correct
-        return super().get(request, *args, **kwargs)
+       
+        return super().get(request, *args, **kwargs, **context)
     
     def post(self, request):
         name = request.POST.get('name')
