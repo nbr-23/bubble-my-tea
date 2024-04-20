@@ -5,7 +5,7 @@
 {% block title %}Order items | Bubble{% endblock %}
 {% block container %}
  
-    <div id="login-container">
+    <div id="product-container">
         <h1 class="reset font-semibold text-2xl mb-3">Panier</h1>
         <div id="successMessage" class="hidden p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
             Paiement réussi ! Votre commande a été enregistrée.
@@ -39,11 +39,12 @@
             <div class="flex items-center justify-start rtl:justify-end p-4">
                 <span class="text-lg font-bold">Total : {{ total_price }} €</span>
             </div>
+            <button id="pay-button" type="button" class="border border-black">Payer</button>
             {% else %}
             <p>Votre panier est vide.</p>
             {% endif %}
         </div>
-        <button id="pay-button" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Payer</button>
+       
     </div>
 
     <script type="text/javascript">

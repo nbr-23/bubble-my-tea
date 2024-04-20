@@ -30,25 +30,21 @@
                       <p class="text-sm font-medium text-gray-900">{{ product.price }} €</p>
                   </div>
                   <div class="mt-4 flex items-center">
-                    <div>
-                      <label for="sugar_level_{{ product.id }}">Sucre:</label>
-                      <select name="sugar_level" id="sugar_level_{{ product.id }}">
-                        <option value="Low">Low</option>
-                        <option value="Normal" selected>Normal</option>
-                        <option value="High">High</option>
-                      </select>
-                    </div>
-                  
-                    <div>
-                      <label for="toppings_{{ product.id }}">Perles:</label>
-                      <select name="toppings" id="toppings_{{ product.id }}">
-                        <option value="None">Sans topping</option>
-                        <option value="Boba">Boba (+0.50€)</option>
-                        <option value="Popping Boba">Popping Boba (+0.50€)</option>
-                        <option value="Jelly">Jelly (+0.50€)</option>
-                      </select>
-                    </div>
-                 
+                    <label for="sugar_level_{{ product.id }}" class="mr-3">Sucre</label>
+                    <select name="sugar_level" id="sugar_level_{{ product.id }}">
+                      <option value="Low">Low</option>
+                      <option value="Normal" selected>Normal</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+                  <div class="mt-4 flex items-center">
+                    <label for="toppings_{{ product.id }}" class="mr-3">Perles</label>
+                    <select name="toppings" id="toppings_{{ product.id }}">
+                      <option value="None">Sans topping</option>
+                      <option value="Boba">Boba (+0.50€)</option>
+                      <option value="Popping Boba">Popping Boba (+0.50€)</option>
+                      <option value="Jelly">Jelly (+0.50€)</option>
+                    </select>
                   </div>
                   
                 
@@ -56,7 +52,7 @@
                       <button onclick="changeQuantity('dec', '{{ product.id }}')">-</button>
                       <input type="text" id="quantity_{{ product.id }}" value="1" class="mx-2 border text-center w-8" readonly>
                       <button onclick="changeQuantity('inc', '{{ product.id }}')">+</button>
-                      <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"onclick="addToCart('{{ product.id }}', document.getElementById('quantity_{{ product.id }}').value, 
+                      <button class="ml-4 bg-orange-500 hover:bg-black-700 text-white font-bold py-2 px-4 rounded"onclick="addToCart('{{ product.id }}', document.getElementById('quantity_{{ product.id }}').value, 
                       document.getElementById('sugar_level_{{ product.id }}').value,
                       document.getElementById('toppings_{{ product.id }}').value)">
                         <svg class="w-[37px] h-[37px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

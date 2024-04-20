@@ -21,8 +21,8 @@ urlpatterns = [
     path('product/update/<int:product_id>/', ProductUpdateView.as_view(), name='product_update'),
     path('product/delete/<int:product_id>/', ProductDeleteView.as_view(), name='product_delete'),
     path('add_to_cart/', AddToCartView.as_view(), name='add_to_cart'),
-     path('remove_from_cart/', RemoveCartItemView.as_view(), name='remove_from_cart'),
-     path('update_cart/', UpdateCartItemView.as_view(), name='update_cart'),
-     path('process_payment/', ProcessPaymentView.as_view(), name='process_payment'),
-     
+    path('remove_from_cart/', RemoveCartItemView.as_view(), name='remove_from_cart'),
+    path('update_cart/', UpdateCartItemView.as_view(), name='update_cart'),
+    path('process_payment/', ProcessPaymentView.as_view(), name='process_payment'),
+    
 ]

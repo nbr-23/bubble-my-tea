@@ -69,15 +69,18 @@ body{
   }
   #product-shop-container{
     
-    margin-top: 10%;
+    max-width: 1000px;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    width:100%;
+    margin-top: 10%;
     
     
   }
 
   #product-container{
-    max-width: 900px;
+    max-width: 1000px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -134,11 +137,13 @@ body{
     background-color: #ffffff; 
     color: rgb(0, 0, 0);
   }
+
   #user_list {
     
     font-size: 1.3em;
   }
-  
+
+
   #link_menu:hover, button:hover, #containerBtn a:hover  {
     background-color: #000000; 
     color: rgb(255, 255, 255);
